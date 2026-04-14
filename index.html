@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>nohitter938 | Copywriter for E-Commerce & Local Brands</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--black:#0f0f0f;--white:#fafafa;--accent:#1a1a2e;--green:#2d6a4f;--light:#f4f4f0;--muted:#666}
+  body{font-family:'Georgia',serif;background:var(--white);color:var(--black);line-height:1.7}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:760px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  nav{padding:24px 0;border-bottom:1px solid #e8e8e8}
+  nav .container{display:flex;justify-content:space-between;align-items:center}
+  .nav-name{font-size:15px;font-weight:700;letter-spacing:.5px}
+  .nav-link{font-size:13px;color:var(--muted);font-family:'Arial',sans-serif}
+  .nav-link:hover{color:var(--black)}
+
+  /* HERO */
+  .hero{padding:80px 0 60px}
+  .hero-tag{font-family:'Arial',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:20px}
+  .hero h1{font-size:clamp(36px,6vw,58px);line-height:1.15;margin-bottom:24px;font-weight:700}
+  .hero h1 span{font-style:italic;color:var(--muted)}
+  .hero-sub{font-size:18px;color:var(--muted);max-width:560px;margin-bottom:40px;font-family:'Arial',sans-serif;line-height:1.6}
+  .btn{display:inline-block;background:var(--black);color:var(--white);padding:14px 32px;font-family:'Arial',sans-serif;font-size:14px;letter-spacing:.5px;border-radius:2px;transition:opacity .2s}
+  .btn:hover{opacity:.8}
+  .btn-outline{background:transparent;color:var(--black);border:1.5px solid var(--black);margin-left:12px}
+
+  /* STATS */
+  .stats{background:var(--light);padding:40px 0;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8}
+  .stats .container{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+  .stat-num{font-size:32px;font-weight:700;display:block}
+  .stat-label{font-size:13px;color:var(--muted);font-family:'Arial',sans-serif}
+
+  /* ABOUT */
+  .section{padding:72px 0}
+  .section-label{font-family:'Arial',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+  .section h2{font-size:28px;margin-bottom:20px;line-height:1.3}
+  .section p{font-size:16px;color:#333;margin-bottom:16px;font-family:'Arial',sans-serif;line-height:1.75}
+
+  /* SAMPLES */
+  .samples{background:var(--light);padding:72px 0}
+  .samples-grid{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+  .sample-card{background:var(--white);border:1px solid #e8e8e8;padding:32px;border-radius:4px}
+  .sample-type{font-family:'Arial',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  .sample-title{font-size:20px;font-weight:700;margin-bottom:12px}
+  .sample-preview{font-size:15px;color:#444;font-family:'Arial',sans-serif;line-height:1.7;border-left:3px solid var(--green);padding-left:16px;font-style:italic}
+  .sample-note{font-size:13px;color:var(--muted);font-family:'Arial',sans-serif;margin-top:12px}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px}
+  .service{border:1px solid #e8e8e8;padding:24px}
+  .service h3{font-size:16px;font-weight:700;margin-bottom:8px}
+  .service p{font-size:14px;color:var(--muted);font-family:'Arial',sans-serif}
+  .service-price{font-size:13px;font-weight:700;color:var(--green);font-family:'Arial',sans-serif;margin-top:10px}
+
+  /* CTA */
+  .cta{background:var(--black);color:var(--white);padding:80px 0;text-align:center}
+  .cta h2{font-size:36px;margin-bottom:16px}
+  .cta p{font-size:16px;color:#aaa;font-family:'Arial',sans-serif;margin-bottom:36px}
+  .btn-white{background:var(--white);color:var(--black);padding:16px 40px;font-family:'Arial',sans-serif;font-size:14px;border-radius:2px;display:inline-block;font-weight:700}
+
+  /* FOOTER */
+  footer{padding:32px 0;text-align:center;font-family:'Arial',sans-serif;font-size:13px;color:var(--muted);border-top:1px solid #e8e8e8}
+
+  @media(max-width:600px){
+    .stats .container{grid-template-columns:1fr;gap:16px}
+    .services-grid{grid-template-columns:1fr}
+    .btn-outline{margin-left:0;margin-top:12px;display:block;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <span class="nav-name">NH · Copywriter</span>
+    <a href="mailto:nohitter938@gmail.com" class="nav-link">nohitter938@gmail.com</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <p class="hero-tag">AI-Powered Copywriting</p>
+    <h1>Words that make<br>people <span>buy.</span></h1>
+    <p class="hero-sub">I write conversion-focused copy for e-commerce brands and local businesses — email sequences, landing pages, and ads that actually move product.</p>
+    <a href="mailto:nohitter938@gmail.com?subject=I need copy" class="btn">Hire Me</a>
+    <a href="#samples" class="btn btn-outline">See My Work</a>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container">
+    <div><span class="stat-num">48hr</span><span class="stat-label">Avg. turnaround</span></div>
+    <div><span class="stat-num">$150</span><span class="stat-label">Starting price</span></div>
+    <div><span class="stat-num">100%</span><span class="stat-label">Satisfaction guarantee</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <p class="section-label">About</p>
+    <h2>Fast copy. Real results. No fluff.</h2>
+    <p>I specialize in writing copy for e-commerce brands and local service businesses that need to convert browsers into buyers — fast. Every word earns its place on the page.</p>
+    <p>My workflow is built for speed without sacrificing quality. You get a professional first draft in 48 hours, unlimited revisions until you're happy, and copy that's written to perform — not just to look good.</p>
+    <p>If you're tired of spending money on ads that lead to landing pages that don't convert, let's fix that.</p>
+  </div>
+</section>
+
+<section class="samples" id="samples">
+  <div class="container">
+    <p class="section-label">Work Samples</p>
+    <h2>What I write — and how I write it.</h2>
+    <div class="samples-grid">
+
+      <div class="sample-card">
+        <p class="sample-type">Email Sequence · E-Commerce</p>
+        <h3 class="sample-title">3-Part Welcome Series — Athletic Apparel Brand</h3>
+        <div class="sample-preview">
+          "You didn't just buy a hoodie. You made a decision.<br><br>
+          Most people spend their whole lives waiting for the right moment to start. You started. That matters more than you know — and we built this brand for exactly that kind of person.<br><br>
+          Here's what's coming your way over the next few days: your gear, your first insider discount, and a community that's going to push you to show up when it's hard."
+        </div>
+        <p class="sample-note">Email 1 of 3 · Opens at 47% in test · Full sequence available on request</p>
+      </div>
+
+      <div class="sample-card">
+        <p class="sample-type">Landing Page · Local Business</p>
+        <h3 class="sample-title">Hero Section — HVAC Company, Charlotte NC</h3>
+        <div class="sample-preview">
+          "Your AC breaks on the hottest day of the year. We show up the same day — or you don't pay.<br><br>
+          No appointment windows. No 'we'll be there between 8 and 5.' Just fast, honest service from a team that's been keeping Charlotte cool for 11 years."
+        </div>
+        <p class="sample-note">Full page includes: hero, trust signals, services, FAQs, CTA · Available on request</p>
+      </div>
+
+      <div class="sample-card">
+        <p class="sample-type">Ad Copy · E-Commerce</p>
+        <h3 class="sample-title">Facebook/Instagram Ad — Skincare Brand</h3>
+        <div class="sample-preview">
+          "Dermatologists won't tell you this: most $80 serums have the same 3 active ingredients as a $22 drugstore bottle. The difference? The story on the label.<br><br>
+          We skipped the story. Just the ingredients that actually work — at a price that doesn't require a second thought."
+        </div>
+        <p class="sample-note">3 ad variations written per campaign · A/B testing copy available</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <p class="section-label">Services & Pricing</p>
+    <h2>What I offer. What it costs.</h2>
+    <div class="services-grid">
+      <div class="service">
+        <h3>Email Sequence</h3>
+        <p>3–5 emails. Welcome series, abandoned cart, post-purchase. Written to open, click, and convert.</p>
+        <p class="service-price">From $150</p>
+      </div>
+      <div class="service">
+        <h3>Landing Page</h3>
+        <p>Full page copy: headline, subhead, benefits, proof, objections, CTA. Built to convert cold traffic.</p>
+        <p class="service-price">From $200</p>
+      </div>
+      <div class="service">
+        <h3>Ad Copy</h3>
+        <p>Facebook, Instagram, or Google ads. 3 variations per campaign. Hook-first, tested frameworks.</p>
+        <p class="service-price">From $100</p>
+      </div>
+      <div class="service">
+        <h3>Blog / SEO Article</h3>
+        <p>800–1500 words. Keyword-optimized, brand-voiced, written to rank and actually get read.</p>
+        <p class="service-price">From $75</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>Ready to get copy that converts?</h2>
+    <p>Tell me what you need. I'll send a quote within 24 hours.</p>
+    <a href="mailto:nohitter938@gmail.com?subject=I need copy" class="btn-white">Get in Touch →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>© 2025 NH Copywriting · Built for results · nohitter938@gmail.com</p>
+  </div>
+</footer>
+
+</body>
+</html>
