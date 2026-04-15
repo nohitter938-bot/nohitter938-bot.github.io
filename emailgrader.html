@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cold Email Grader — Score Your Cold Email in Seconds</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f7f6f1;--black:#0d0d0d;--white:#fff;--green:#00c471;--red:#ff4444;--amber:#f5a623;--border:#e0dfd8;--muted:#888}
+body{background:var(--bg);color:var(--black);font-family:'Inter',sans-serif;min-height:100vh}
+header{background:var(--black);padding:18px 40px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+.logo span{color:var(--green)}
+.hbadge{background:var(--green);color:#000;font-size:11px;font-weight:700;padding:4px 12px;letter-spacing:1px;text-transform:uppercase}
+.hero{text-align:center;padding:70px 20px 50px;max-width:700px;margin:0 auto}
+.hero-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(40px,7vw,68px);font-weight:800;line-height:1;letter-spacing:-2px;margin-bottom:20px}
+.hero h1 span{color:var(--green)}
+.hero p{font-size:17px;color:var(--muted);line-height:1.6;max-width:480px;margin:0 auto}
+.tool-wrap{max-width:760px;margin:0 auto;padding:20px 20px 80px}
+.card{background:#fff;border:1px solid var(--border);padding:36px;margin-bottom:20px}
+label{display:block;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+textarea{width:100%;border:1.5px solid var(--border);background:#fafaf7;font-family:'Inter',sans-serif;font-size:15px;padding:16px;resize:vertical;min-height:200px;outline:none;color:var(--black);line-height:1.6;transition:border-color .2s}
+textarea:focus{border-color:var(--black)}
+textarea::placeholder{color:#bbb}
+.grade-btn{width:100%;background:var(--black);color:#fff;border:none;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:1px;padding:20px;cursor:pointer;margin-top:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:12px}
+.grade-btn:hover{background:#222}
+.grade-btn:disabled{background:#ccc;cursor:not-allowed}
+.spinner{width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.spinner.on{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.results{display:none}
+.results.show{display:block;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.score-banner{display:flex;align-items:center;justify-content:space-between;padding:28px 36px;margin-bottom:20px}
+.score-banner.great{background:var(--green)}
+.score-banner.ok{background:var(--amber)}
+.score-banner.bad{background:var(--red)}
+.score-num{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;color:#fff;line-height:1}
+.score-label{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff}
+.score-desc{font-size:14px;color:rgba(255,255,255,.8);margin-top:6px}
+.criteria-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.crit-card{background:#fff;border:1px solid var(--border);padding:20px}
+.crit-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.crit-name{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+.crit-score{font-family:'Syne',sans-serif;font-size:24px;font-weight:800}
+.crit-score.good{color:var(--green)}
+.crit-score.mid{color:var(--amber)}
+.crit-score.low{color:var(--red)}
+.bar-wrap{height:3px;background:#eee;margin-bottom:10px}
+.bar-fill{height:3px;transition:width 1s ease}
+.bar-fill.good{background:var(--green)}
+.bar-fill.mid{background:var(--amber)}
+.bar-fill.low{background:var(--red)}
+.crit-feedback{font-size:13px;color:var(--muted);line-height:1.5}
+.fixes-card{background:var(--black);color:#fff;padding:32px;margin-bottom:20px}
+.fixes-card h3{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:20px}
+.fix-item{padding:16px 0;border-bottom:1px solid #1e1e1e;display:flex;gap:16px}
+.fix-item:last-child{border-bottom:none;padding-bottom:0}
+.fix-num{font-family:'Syne',sans-serif;font-size:11px;color:var(--green);font-weight:700;min-width:24px;padding-top:2px}
+.fix-text{font-size:14px;line-height:1.6;color:#ccc}
+.fix-text strong{color:#fff;display:block;margin-bottom:4px}
+.rewrite-card{background:#f0fdf7;border:1.5px solid var(--green);padding:28px;margin-bottom:20px}
+.rewrite-card h3{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+.rewrite-text{font-size:14px;line-height:1.85;color:var(--black);white-space:pre-line}
+.copy-btn{background:var(--green);color:#000;border:none;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;padding:10px 22px;cursor:pointer;margin-top:16px;text-transform:uppercase;transition:opacity .2s}
+.copy-btn:hover{opacity:.85}
+.upsell-banner{background:var(--black);padding:48px 40px;text-align:center;margin-bottom:20px}
+.upsell-banner h3{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:12px}
+.upsell-banner p{font-size:15px;color:#888;margin-bottom:28px;line-height:1.6;max-width:440px;margin-left:auto;margin-right:auto}
+.upsell-btn{display:inline-block;background:var(--green);color:#000;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;padding:16px 36px;text-decoration:none;transition:opacity .2s}
+.upsell-btn:hover{opacity:.9}
+.upsell-sub{font-size:12px;color:#444;margin-top:16px}
+.upsell-sub a{color:var(--green);text-decoration:none}
+.error-box{background:#fff0f0;border:1px solid #ffcaca;padding:14px;color:#c00;font-size:14px;margin-top:12px;display:none}
+.error-box.show{display:block}
+footer{background:var(--black);color:#444;text-align:center;padding:22px;font-size:12px;font-family:'Syne',sans-serif;letter-spacing:1px}
+footer a{color:#444;text-decoration:none}
+footer span{color:var(--green)}
+@media(max-width:580px){
+  .criteria-grid{grid-template-columns:1fr}
+  .score-num{font-size:52px}
+  .score-banner{padding:20px}
+  .card,.fixes-card,.upsell-banner{padding:24px}
+  header{padding:16px 20px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">ColdEmail<span>Grader</span></div>
+  <span class="hbadge">Free · No Signup</span>
+</header>
+
+<div class="hero">
+  <p class="hero-tag">AI-Powered · Instant · Free</p>
+  <h1>Grade your cold email <span>before</span> you send it</h1>
+  <p>Paste any cold email. Get an instant score out of 100, exact fixes, and a rewritten version that converts.</p>
+</div>
+
+<div class="tool-wrap">
+  <div class="card">
+    <label>Paste your cold email (include subject line if you have one)</label>
+    <textarea id="emailInput" placeholder="Subject: Quick question about [Company]
+
+Hi [Name],
+
+I came across your store and noticed your email sequences could be converting better...
+
+Paste your full cold email here."></textarea>
+    <button class="grade-btn" id="gradeBtn" onclick="gradeEmail()">
+      <div class="spinner" id="spinner"></div>
+      <span id="btnText">GRADE MY EMAIL →</span>
+    </button>
+    <div class="error-box" id="errorBox"></div>
+  </div>
+
+  <div class="results" id="results">
+    <div class="score-banner" id="scoreBanner">
+      <div>
+        <div class="score-label" id="scoreLabel"></div>
+        <div class="score-desc" id="scoreDesc"></div>
+      </div>
+      <div class="score-num" id="scoreNum"></div>
+    </div>
+
+    <div class="criteria-grid" id="criteriaGrid"></div>
+
+    <div class="fixes-card">
+      <h3>Exact fixes to boost your reply rate</h3>
+      <div id="fixesList"></div>
+    </div>
+
+    <div class="rewrite-card">
+      <h3>Rewritten version — ready to send</h3>
+      <div class="rewrite-text" id="rewriteText"></div>
+      <button class="copy-btn" onclick="copyRewrite()">COPY REWRITTEN EMAIL</button>
+    </div>
+
+    <div class="upsell-banner">
+      <h3>Want 50 emails that already score 90+?</h3>
+      <p>Skip the grading. Get 50 proven cold email templates — outreach, follow-ups, partnerships, launches, and win-back campaigns. All under 150 words. All tested.</p>
+      <a href="https://colesharp.gumroad.com/l/dpydl" target="_blank" class="upsell-btn">GET 50 TEMPLATES — $27 →</a>
+      <div class="upsell-sub">Also: <a href="https://colesharp.gumroad.com/l/100-ai-prompts-make-money" target="_blank">100 AI prompts for making money online — $17</a></div>
+    </div>
+  </div>
+</div>
+
+<footer>ColdEmail<span>Grader</span> · Free forever · by <a href="https://colesharp.gumroad.com" target="_blank">Cole Sharp</a></footer>
+
+<script>
+let rewriteContent = '';
+
+async function gradeEmail() {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email || email.length < 30) { showError('Please paste a cold email to grade (at least a few lines).'); return; }
+
+  const btn = document.getElementById('gradeBtn');
+  const spinner = document.getElementById('spinner');
+  const btnText = document.getElementById('btnText');
+  btn.disabled = true; spinner.classList.add('on'); btnText.textContent = 'ANALYZING...';
+  document.getElementById('errorBox').classList.remove('show');
+  document.getElementById('results').classList.remove('show');
+
+  const prompt = `You are a world-class cold email copywriter. Analyze this cold email strictly and honestly. Return ONLY valid JSON, no markdown, no extra text.
+
+EMAIL TO ANALYZE:
+${email}
+
+Return this exact JSON:
+{
+  "score": <integer 0-100>,
+  "scoreLabel": "<one of: Excellent | Good | Needs Work | Poor>",
+  "scoreDesc": "<one honest sentence about the overall email>",
+  "criteria": [
+    {"name": "Subject Line", "score": <0-10>, "feedback": "<specific 1-sentence feedback>"},
+    {"name": "Opening Line", "score": <0-10>, "feedback": "<specific 1-sentence feedback>"},
+    {"name": "Clarity", "score": <0-10>, "feedback": "<specific 1-sentence feedback>"},
+    {"name": "Value Proposition", "score": <0-10>, "feedback": "<specific 1-sentence feedback>"},
+    {"name": "Personalization", "score": <0-10>, "feedback": "<specific 1-sentence feedback>"},
+    {"name": "Call to Action", "score": <0-10>, "feedback": "<specific 1-sentence feedback>"}
+  ],
+  "fixes": [
+    {"issue": "<problem title>", "fix": "<exact actionable fix in 1-2 sentences>"},
+    {"issue": "<problem title>", "fix": "<exact actionable fix in 1-2 sentences>"},
+    {"issue": "<problem title>", "fix": "<exact actionable fix in 1-2 sentences>"}
+  ],
+  "rewrite": "<complete rewritten cold email that scores 90+. Use actual line breaks with \\n. Include subject line. Under 150 words. Human, specific, low-friction CTA.>"
+}`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const raw = data.content[0].text.replace(/```json|```/g, '').trim();
+    const d = JSON.parse(raw);
+    render(d);
+  } catch(e) {
+    showError('Something went wrong — please try again in a moment.');
+    console.error(e);
+  } finally {
+    btn.disabled = false; spinner.classList.remove('on'); btnText.textContent = 'GRADE MY EMAIL →';
+  }
+}
+
+function render(d) {
+  const score = Math.round(d.score);
+  const banner = document.getElementById('scoreBanner');
+  banner.className = 'score-banner ' + (score >= 75 ? 'great' : score >= 50 ? 'ok' : 'bad');
+  document.getElementById('scoreNum').textContent = score;
+  document.getElementById('scoreLabel').textContent = d.scoreLabel + ' — ' + score + '/100';
+  document.getElementById('scoreDesc').textContent = d.scoreDesc;
+
+  document.getElementById('criteriaGrid').innerHTML = d.criteria.map(c => {
+    const s = Math.round(c.score);
+    const cls = s >= 7 ? 'good' : s >= 4 ? 'mid' : 'low';
+    return `<div class="crit-card">
+      <div class="crit-top">
+        <span class="crit-name">${c.name}</span>
+        <span class="crit-score ${cls}">${s}/10</span>
+      </div>
+      <div class="bar-wrap"><div class="bar-fill ${cls}" style="width:${s * 10}%"></div></div>
+      <div class="crit-feedback">${c.feedback}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('fixesList').innerHTML = d.fixes.map((f, i) => `
+    <div class="fix-item">
+      <span class="fix-num">0${i+1}</span>
+      <div class="fix-text"><strong>${f.issue}</strong>${f.fix}</div>
+    </div>`).join('');
+
+  rewriteContent = d.rewrite;
+  document.getElementById('rewriteText').textContent = d.rewrite;
+  document.getElementById('results').classList.add('show');
+  setTimeout(() => document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+function copyRewrite() {
+  navigator.clipboard.writeText(rewriteContent).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'COPIED!';
+    setTimeout(() => btn.textContent = 'COPY REWRITTEN EMAIL', 2000);
+  });
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorBox');
+  el.textContent = msg; el.classList.add('show');
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') gradeEmail();
+});
+</script>
+</body>
+</html>
